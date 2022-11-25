@@ -32,7 +32,7 @@ function Sort() {
                     {sortName}
                 </span>
             </div>
-            {isVisiblePopup && (
+            {isVisiblePopup ? (
                 <div className="sort__popup">
                     <ul>
                         {list.map((item, i) => (
@@ -46,7 +46,7 @@ function Sort() {
                         ))}
                     </ul>
                 </div>
-            )}
+            ) : null}
         </div>
     );
 }
