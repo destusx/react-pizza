@@ -1,18 +1,22 @@
-import React from "react";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
 
-function Sort({ value, onChangeSort }) {
+function Sort() {
+    const sort = useSelector(state => state.filter.sort);
+    const dispatch = useDispatch();
     const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
     const list = [
-        { name: "популярности (DESC)", sort: "rating" },
-        { name: "популярности (ASC)", sort: "-rating" },
-        { name: "цене (DESC)", sort: "price" },
-        { name: "цене (ASC)", sort: "-price" },
-        { name: "алфавиту (DESC)", sort: "title" },
-        { name: "алфавиту (ASC)", sort: "-title" },
+        { name: 'популярности (DESC)', sort: 'rating' },
+        { name: 'популярности (ASC)', sort: '-rating' },
+        { name: 'цене (DESC)', sort: 'price' },
+        { name: 'цене (ASC)', sort: '-price' },
+        { name: 'алфавиту (DESC)', sort: 'title' },
+        { name: 'алфавиту (ASC)', sort: '-title' },
     ];
 
-    const onClickListItem = (i) => {
-        onChangeSort(i);
+    const onClickListItem = obj => {
+        dispatch(setSort(obj));
         setIsVisiblePopup(false);
     };
 
@@ -33,7 +37,7 @@ function Sort({ value, onChangeSort }) {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setIsVisiblePopup(!isVisiblePopup)}>
-                    {value.name}
+                    {sort.name}
                 </span>
             </div>
             {isVisiblePopup ? (
@@ -43,9 +47,7 @@ function Sort({ value, onChangeSort }) {
                             <li
                                 key={i}
                                 onClick={() => onClickListItem(item)}
-                                className={
-                                    value.sort === item.sort ? "active" : null
-                                }
+                                className={sort.sort === item.sort ? 'active' : null}
                             >
                                 {item.name}
                             </li>
